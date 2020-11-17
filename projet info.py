@@ -61,9 +61,21 @@ def list_humidex(temp,humi):    #temp et humi sont des listes
     humidex=[]
     for k in range(len(temp)):
         humidex.append(calcul_humidex(temp[k],humi[k]))
-    
     return humidex
     
+def confortable(humidex):
+    n=len(temp)
+    for k in range(n):
+        if  list_humidex(temp,humi) <= 29:
+            return "aucun inconfort ne sera ressenti"
+        elif 30<=list_humidex(temp,humi) <= 38:
+            return "un leger inconfort se fera ressentir"
+        elif 39<=list_humidex(temp,humi) <= 45:
+            return "un fort inconfort sera ressenti"
+        elif 46<=list_humidex(temp,humi) <= 54:
+            return "l'inconfort devient dangereux"
+        elif 55<=list_humidex(temp,humi) <= 60:
+            return "Coup de chaleur imminent"
 
 
 def correlation(a,b):
