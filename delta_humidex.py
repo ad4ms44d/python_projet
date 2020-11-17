@@ -49,7 +49,7 @@ def delta(L):
     delta = []
     n = len(L)
     for k in range(n-1):
-        d = L[k]-L[k+1]
+        d = L[k+1]-L[k]
         delta.append(d)
     return delta
 print(delta(id_1_temp))
