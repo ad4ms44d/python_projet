@@ -18,7 +18,7 @@ id_1 = df[df['id']==1]
 id_1_temp = id_1['temp']
 print(id_1_temp)
 
-print(id_1['temp']['2019-08':'2019-10'].plot())
+print(id_1['temp']['2019-08'].resample('D').plot())
 
 id_1_humi = id_1['humidity']
 #print(id_1_humi)
@@ -49,7 +49,7 @@ def delta(L):
     delta = []
     n = len(L)
     for k in range(n-1):
-        d = L[k+1]-L[k]
+        d = L[k]-L[k+1]
         delta.append(d)
     return delta
 print(delta(id_1_temp))
