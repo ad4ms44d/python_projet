@@ -2,9 +2,9 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 data=pd.read_csv('EIVP_KM.csv', sep=';')
+data=pd.read_csv('EIVP_KM.csv', sep=';', index_col = 'sent_at', parse_dates = True)
 data_describe=data.describe()
 temp=data['temp']
-sent_at=data['sent_at']
 c=str
 def evolution_var(c,a,b):
     if c==display:
@@ -47,15 +47,24 @@ def evolution_var2(a,b,c):
     plt.plot(x, y)
     plt.show() 
     
-def humi(a,d):
-    return ((17.27*data.temp[a])/(237.7+data.temp[a])+np.log(data.humidity[a]))
+def fonction_alpha(t,h):
+    return ((17.27*t)/(237.7+t)+np.log(h))
 
-def trose(a,d):
-    return ((237.7*humi(a,d))/(17.27-humi(a,d)))
+def trose(t,h):
+    return ((237.7*fonction_alpha(t,h))/(17.27-fonction_alpha(t,h)))
 
-def humidex(a,d):
-    hum=data.temp[a]+0.5555*(6.11*np.exp(5417.7530*((1/273.16)-(1/273+trose(a,d))))-10)
+def calcul_humidex(t,h):
+    hum=t+0.5555*(6.11*np.exp(5417.7530*((1/273.16)-(1/273+trose(t,h))))-10)
     return hum
+
+def list_humidex(temp,humi):    #temp et humi sont des listes
+    humidex=[]
+    for k in range(len(temp)):
+        humidex.append(calcul_humidex(temp[k],humi[k]))
+    
+    return humidex
+    
+
 
 def correlation(a,b):
     data.corr()
