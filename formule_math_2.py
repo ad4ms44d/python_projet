@@ -31,7 +31,7 @@ def variance(L):
     var= 0
     n = len(L)
     for k in range(n):
-        var = var + (L[k]-m)**2
+        var = var + (L[k]-moy)**2
     return sqrt(var/n)
 
 def ecart_type(L):
@@ -39,6 +39,7 @@ def ecart_type(L):
     return sqrt(v)
 
 liste =  [1,2,3,4,5,6]
+
 
 def calcul(L):
     a = input()
@@ -59,10 +60,12 @@ def calcul(L):
         return  moyenne(L)
     else : return 'calcul impossible'
     
+#meme fonction en plus  :
+    
 def cal(L):
-    c = input('Quelle valeur statistique voulez-vous ?  ')
+    c = input('Quelle valeur statistique voulez-vous (moyenne, variance, ecart_type, maximum ou minimum) ?  ')
     print ('la valeur est :')
     return globals()[c](L)
 
-
+print(cal(liste))
     
