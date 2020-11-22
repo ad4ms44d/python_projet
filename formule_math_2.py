@@ -50,7 +50,7 @@ def calcul(L):
         return  ecart_type(L)
     elif a == 'maximum' :
         print('le maximum vaut :')
-        return  maiximum(L)
+        return  maximum(L)
     elif a == 'variance':
         print('la variance vaut :')
         return  moyenne(L)
@@ -63,6 +63,5 @@ def cal(L):
     c = input('Quelle valeur statistique voulez-vous ?  ')
     print ('la valeur est :')
     return globals()[c](L)
-
 
     

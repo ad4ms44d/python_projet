@@ -22,15 +22,25 @@ id_2_temp = id_2['temp'] #temp du capt 2
 #id_1['temp']['2019-08-15 12:00':'2019-08-16 04:00'].plot()
 #id_2['temp']['2019-08-15 12:00':'2019-08-16 04:00'].plot()
 L = []
-for k in range(6):
-    L.append(k+1)
-    df[df['id']==k+1]['temp']['2019-08-15 12:00':'2019-08-16 04:00'].plot()
-plt.legend(L)
+#for k in range(6):
+#    L.append(k+1)
+ #   df[df['id']==k+1]['temp']['2019-08-15 12:00':'2019-08-16 04:00'].plot()
+#plt.legend(L)
     
 
 #programme pour choisir un graph
 
-def graphique(L):
-    a = input()
+def graphique():
+    a = input('choisissez :  ')
+    start_date = input('Saisir la date de depart :  ' )
+    end_date = input('Saisir la date de fin :  ' )
+    L = []
+    for k in range(6):
+        L.append( k+1)
+        df[df['id']==k+1][a][start_date:end_date].plot()
+    plt.legend(L, title = 'id', loc = 'upper left')
+    return "voici le graphique"
+print(graphique())
+    
     
     
