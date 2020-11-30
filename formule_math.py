@@ -2,7 +2,7 @@
 """
 Created on Thu Nov 12 16:17:36 2020
 
-@author: adam.saade
+@author: adam.saade et guilhem.amoros
 """
 
 # "formule_math"
