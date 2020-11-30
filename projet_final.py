@@ -2,7 +2,7 @@
 """
 Created on Sat Nov 28 15:25:22 2020
 
-@author: adam.saade
+@author: adam.saade et guilhem.amoros
 """
 
 # =============================================================================
