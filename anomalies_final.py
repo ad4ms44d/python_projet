@@ -106,6 +106,8 @@ def decalage_temps(L) :
     else : return " Voici la liste des couples d'horaires où l'écart est >20minutes :",erreur
 
 def ecart(idi, variable, preci,lim):
+    """ ici idi = capteur, variable = temp,lum etc.., preci = nombre de fois l'ecart-type 
+    et lim = limite de l'écart qu'on tolère"""
     res = []
     L = delta(Id[idi][variable])
     moy_ecart = moyenne(L)
@@ -118,6 +120,7 @@ def ecart(idi, variable, preci,lim):
     else : return 'les grosses discontinuités pour' + ' '+ variable +' sont (écarts et heures indiquées) :', res
 
 def presence(a) :
+    """ ici a est le capteur qu'on veut etudier"""
     horaires = []
     L = Id[a]['noise']
     maxi = maximum(L)
@@ -128,7 +131,7 @@ def presence(a) :
 
 
 # =============================================================================
-# Créattion de dataframe etc
+# Créattion de dataframe et listes utiles
 # =============================================================================
 
 Id = [0]
@@ -137,7 +140,7 @@ Id_humidity = [0]
 humidex = [0]
 data = [0]
 data_corr = []
-for k in range(6):
+for k in range(6): # ici on crée différentes listes et dataframe utiles pour créer les courbes et établir les statistiques
     Id.append(df[df['id']== k+1])
     Id_temp.append(Id[k+1]['temp'])
     Id_humidity.append(Id[k+1]['humidity'])
@@ -150,7 +153,7 @@ for k in range(6):
 test = minutes[1]
 
 # =============================================================================
-# Détection anomalies : 
+# Détection des anomalies : 
 # =============================================================================
 for k in range(6):
     print(' Capteur :' + str(k+1))

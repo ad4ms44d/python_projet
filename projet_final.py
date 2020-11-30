@@ -23,28 +23,28 @@ import datetime
 # fonctions :
 # =============================================================================
 
-def minimum(L):
+def minimum(L): # L est une liste non vide de réels
     mini =L[0]
     for i in L:
         if mini>= i:
             mini = i
     return  mini
 
-def maximum(L):
+def maximum(L): # L est une liste non vide de réels
     maxi = L[0]
     for i in L:
         if maxi <= i:
             maxi = i
     return maxi
 
-def moyenne(L):
+def moyenne(L): # L est une liste non vide de réels
     s = 0
     n = len(L)
     for k in range(n):
         s = s + L[k]
     return s/n
 
-def variance(L):
+def variance(L): # L est une liste non vide de réels
     moy = moyenne(L)
     var= 0
     n = len(L)
@@ -52,11 +52,11 @@ def variance(L):
         var = var + (L[k]-moy)**2
     return sqrt(var/n)
 
-def ecart_type(L):
+def ecart_type(L): # L est une liste non vide
     v = variance(L)
     return  sqrt(v)
 
-def correlation(L1,L2) :
+def correlation(L1,L2) : # L1 et L2 listes non vide de réels
     num = 0
     somme_den1 = 0
     somme_den2 = 0
@@ -71,24 +71,24 @@ def correlation(L1,L2) :
     else : return 'erreur : division par 0, comparez-vous 2 même listes ?'
 
 
-def fonction_alpha(t,h):
+def fonction_alpha(t,h): # t et h deux réels
     return ((17.27*t)/(237.7+t)+np.log(h/100))
 
-def trose(t,h):
+def trose(t,h): # t et h deux réels
     return ((237.7*fonction_alpha(t,h))/(17.27-fonction_alpha(t,h)))
 
-def calcul_humidex(t,h):
+def calcul_humidex(t,h): # t et h deux réels
     hum=t+0.5555*(6.11*np.exp(5417.7530*((1/273.16)-(1/(273.15+trose(t,h)))))-10)
     return hum
 
-def list_humidex(temp,humidity):    #temp et humi sont des listes
+def list_humidex(temp,humidity):    #temp et humi sont des listes non vides de réels
     humidex=[]
     for k in range(len(temp)):
         humidex.append(calcul_humidex(temp[k],humidity[k]))
     
     return humidex
 
-def delta(L):
+def delta(L): #L est une liste non vide de réels
     delta = []
     n = len(L)
     for k in range(n-1):
@@ -97,7 +97,7 @@ def delta(L):
     return delta
 
 
-def main(L):
+def main(L): # L est la liste contenant les string taper sur le shell
     print('Les dates et choix du capteur seront demandés')
     if L[0] == 'display' :
         if L[1] == 'humidex' :
@@ -169,6 +169,8 @@ def decalage_temps(L) :
     else : return " Voici la liste des couples d'horaires où l'écart est >20minutes :",erreur
 
 def ecart(idi, variable, preci,lim):
+    """ ici idi = capteur, variable = temp,lum etc.., preci = nombre de fois l'ecart-type 
+    et lim = limite de l'écart qu'on tolère"""
     res = []
     L = delta(Id[idi][variable])
     moy_ecart = moyenne(L)
@@ -177,10 +179,11 @@ def ecart(idi, variable, preci,lim):
     for k in range(len(L)-1):
         if L[k] > moy_ecart + erreur and abs(L[k]-L[k+1]) > lim :
             res.append((abs(L[k]-L[k+1]),Id[idi].index[k]))
-    if res ==  [] : return ' RAS'
-    else : return 'les grosses discontinuités sont (heures indiquées) :', res
+    if res ==  [] : return ' pas de discontinuité pour :',variable
+    else : return 'les grosses discontinuités pour' + ' '+ variable +' sont (écarts et heures indiquées) :', res
 
 def presence(a) :
+    """ ici a est le capteur qu'on veut etudier"""
     horaires = []
     L = Id[a]['noise']
     maxi = maximum(L)
@@ -201,7 +204,7 @@ Id_humidity = [0]
 humidex = [0]
 data = [0]
 data_corr = []
-for k in range(6):
+for k in range(6): # ici on crée différentes listes et dataframe utiles pour créer les courbes et établir les statistiques
     Id.append(df[df['id']== k+1])
     Id_temp.append(Id[k+1]['temp'])
     Id_humidity.append(Id[k+1]['humidity'])
